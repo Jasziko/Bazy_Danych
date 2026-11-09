@@ -1,0 +1,15 @@
+10:44:54	create table pracownik(id_pracownika int primary key auto_increment, imie varchar(40) not null, nazwisko varchar(60) not null, data_urodzenia date not null)	0 row(s) affected	0.157 sec
+10:45:14	insert into pracownik(imie,nazwisko,data_urodzenia) values ("Roman","Kolano","2009-01-01")	1 row(s) affected	0.000 sec
+10:45:50	insert into pracownik(imie,nazwisko,data_urodzenia) values ("Adrian","Sęp","2003-04-08")	1 row(s) affected	0.016 sec
+10:46:28	insert into pracownik(imie,nazwisko,data_urodzenia) values ("Jan","Kowalski","1999-08-21")	1 row(s) affected	0.016 sec
+10:51:37	update pracownik set data_urodzenia = "1998-07-07" where id_pracownika = 3	1 row(s) affected Rows matched: 1  Changed: 1  Warnings: 0	0.000 sec
+10:57:54	create table zadanie(id_zadania int primary key auto_increment, nazwa_zadania varchar(150) not null, priorytet enum("normalny","wysoki","niski"), opis varchar(250), pracownik int, foreign key (pracownik) references pracownik(id_pracownika))	0 row(s) affected	0.204 sec
+11:02:31	alter table zadanie modify priorytet enum("normalny","wysoki","niski") default "normalny"	0 row(s) affected Records: 0  Duplicates: 0  Warnings: 0	0.063 sec
+11:08:47	insert into zadanie(nazwa_zadania,priorytet,opis,pracownik) values ("Transport",'wysoki',"Przeniesienie 15 ton betonowej kostki 35m dalej.",1)	1 row(s) affected	0.000 sec
+11:10:00	insert into zadanie(nazwa_zadania,priorytet,opis,pracownik) values ("Logistyka",'wysoki',"Siedzenie przy komputerze i (opcjonalne) patrzenie w monitor.",2)	1 row(s) affected	0.000 sec
+11:11:00	insert into zadanie(nazwa_zadania,priorytet,opis,pracownik) values ("Utrzymanie_firmy",'niski',"Naprawa uszkodzonych systemów powodujących milionowe straty każdego dnia.",3)	1 row(s) affected	0.000 sec
+11:14:57	create table projekt ( id_projektu int primary key auto_increment,  nazwa_projektu varchar(150) not null, data_rozpoczecia date not null, data_zakonczenia date)	0 row(s) affected	0.531 sec
+11:22:07	alter table projekt add column (menadzer_projektu int)	0 row(s) affected Records: 0  Duplicates: 0  Warnings: 0	0.031 sec
+11:30:27	ALTER TABLE projekt  ADD CONSTRAINT menadzer_projektu FOREIGN KEY (menadzer_projektu) REFERENCES pracownik(id_pracownika)	0 row(s) affected Records: 0  Duplicates: 0  Warnings: 0	0.359 sec
+11:36:58	insert into projekt(nazwa_projektu, data_rozpoczecia,data_zakonczenia,menadzer_projektu) values ("Pozbycie się Romana","1998-07-07",null,3)	1 row(s) affected	0.015 sec
+11:38:58	insert into projekt(nazwa_projektu, data_rozpoczecia,data_zakonczenia,menadzer_projektu) values ("Osiągnięcie każego możliwego celu (Poza pozbyciem się Romana).","2026-11-08","2026-11-09",1)	1 row(s) affected	0.000 sec

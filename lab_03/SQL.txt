@@ -13,3 +13,21 @@ alter table projekt add column (menadzer_projektu int)
 ALTER TABLE projekt  ADD CONSTRAINT menadzer_projektu FOREIGN KEY (menadzer_projektu) REFERENCES pracownik(id_pracownika)
 insert into projekt(nazwa_projektu, data_rozpoczecia,data_zakonczenia,menadzer_projektu) values ("Pozbycie się Romana","1998-07-07",null,3)
 insert into projekt(nazwa_projektu, data_rozpoczecia,data_zakonczenia,menadzer_projektu) values ("Osiągnięcie każego możliwego celu (Poza pozbyciem się Romana).","2026-11-08","2026-11-09",1)
+create table sprint(id_sprintu int primary key auto_increment, numer_sprintu int, data_rozpoczecia date, data_zakonczenia date)
+alter table zadanie add constraint sprint foreign key (sprint) references sprint(id_sprintu)
+update sprint set numer_sprintu = 1, data_rozpoczecia = "2026-06-12", data_zakonczenia = "2026-06-13"
+update zadanie set sprint = 1 where id_zadania <= 2
+create table status(id_statusu int primary key auto_increment, nazwa_statusu varchar(20))
+insert into status(nazwa_statusu) value ("Rozpoczęty")
+insert into status(nazwa_statusu) value ("Zakończony")
+insert into status(nazwa_statusu) value ("Nie określony")
+create table zadanie_has_status(id_zdarzenia int primary key auto_increment, id_zadania int, id_statusu int, data_zdarzenia date);
+alter table zadanie_has_status add constraint id_zadania foreign key (id_zadania) references zadanie(id_zadania)
+alter table zadanie_has_status add constraint id_statusu foreign key (id_statusu) references status(id_statusu)
+alter table zadanie_has_status modify data_zdarzenia datetime default current_timestamp
+insert into zadanie_has_status(id_zadania, id_statusu) values(1,1);
+insert into zadanie_has_status(id_zadania, id_statusu) values(2,3);
+insert into zadanie_has_status(id_zadania, id_statusu) values(3,2);
+delete from projekt where id_projektu = 1
+ALTER TABLE zadanie DROP FOREIGN KEY sprint;
+DROP TABLE sprint;

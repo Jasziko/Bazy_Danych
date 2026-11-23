@@ -1,0 +1,20 @@
+ALTER TABLE zadanie DROP FOREIGN KEY `zadanie_ibfk_1`;
+ALTER TABLE pracownik MODIFY id_pracownika INT NOT NULL;
+alter table projekt drop CONSTRAINT menadzer_projektu;
+ALTER TABLE pracownik DROP PRIMARY KEY;
+ALTER TABLE pracownik add PRIMARY KEY (id_pracownika);
+alter table zadanie add column (godziny_szacowane int default 8);
+update zadanie set godziny_szacowane = 4 where id_zadania = 1;
+update zadanie set godziny_szacowane = 12 where id_zadania = 2;
+update zadanie set godziny_szacowane = 16 where id_zadania = 3;
+alter table zadanie modify godziny_szacowane int default 6;
+insert into zadanie(nazwa_zadania,priorytet,opis,pracownik,sprint) values ("robienie SQL","normalny","Lekcja tego wygama więc do roboty",2,1)
+select * from zadanie where id_zadania = 4;
+delete from zadanie where id_zadania = 4;
+alter table projekt add column opis_kratki varchar(200)
+update projekt set opis_kratki = "MVP" where id_projektu = 1;
+update projekt set opis_kratki = "PILNE WDROŻENIE" where id_projektu = 2;
+alter table projekt drop column opis_kratki;
+alter table zadanie add column id_projektu int, add constraint foreign key(id_projektu) references projekt(id_projektu) on delete set null;
+delete from project where id_projektu = 1;
+select * from zadanie;
